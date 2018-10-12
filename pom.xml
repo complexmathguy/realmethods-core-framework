@@ -1,0 +1,281 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"   
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0   
+http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  
+  <modelVersion>4.0.0</modelVersion>  
+  
+  <groupId>com.realmethods.code</groupId>  
+  <artifactId>realmethods-framework</artifactId>  
+  <version>6.0.0</version>  
+  <packaging>jar</packaging>  
+    
+  <name>realmethods framework</name>
+  <url>http://www.realmethods.com</url>  
+  
+  <repositories>
+  	<repository>
+      <id>maven central</id>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
+  </repositories>
+ 
+  <build>
+    <plugins>
+<!-- ant plugin to run github -->
+	  <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+		<executions>
+          <execution>
+            <id>git</id>
+            <phase>clean</phase>
+            <inherited>false</inherited>
+            <configuration>
+            	<build_dir>${project.basedir}</build_dir>
+              <target>
+                <ant antfile="gitpush.xml">
+                  <target name="gitpush"/>
+                </ant>
+			  </target>                
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>          
+    	</executions>      
+      </plugin>    
+      
+<!-- javadoc plugin -->    
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <configuration>
+          <show>private</show>
+          <nohelp>true</nohelp>
+          <failOnError>false</failOnError>
+          <excludePackageNames>BlowfishJ</excludePackageNames>
+        </configuration>
+      </plugin>
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.0.1</version>
+        <configuration>
+          <show>private</show>
+          <nohelp>true</nohelp>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <dependencies>  
+
+    <dependency>  
+      <groupId>junit</groupId>  
+      <artifactId>junit</artifactId>  
+      <version>4.12</version>  
+      <scope>compile</scope>  
+    </dependency>  
+
+    <dependency>  
+      <groupId>log4j</groupId>  
+      <artifactId>log4j</artifactId>  
+      <version>1.2.6</version>  
+      <scope>compile</scope>  
+    </dependency>  
+
+    <dependency>  
+	  <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>4.2.2.Final</version>
+    </dependency>  
+
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-c3p0</artifactId>
+	    <version>4.2.2.Final</version>
+	</dependency>
+
+    <dependency>  
+	  <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-tools</artifactId>
+      <version>3.2.3.GA</version>
+    </dependency>  
+    
+	<dependency>
+	    <groupId>org.apache.axis</groupId>
+	    <artifactId>axis</artifactId>
+	    <version>1.4</version>
+	</dependency>
+
+    <dependency>  
+      <groupId>javax.jdo</groupId>  
+      <artifactId>jdo2-api</artifactId>  
+      <version>2.2</version>  
+      <scope>compile</scope>  
+    </dependency>
+
+	<dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-core</artifactId>
+      <version>2.3.8</version>
+	</dependency>
+
+	<dependency>
+      <groupId>org.apache.portals.bridges</groupId>
+      <artifactId>portals-bridges-struts</artifactId>
+      <version>1.2.4-1.0</version>
+	</dependency>
+	
+	<dependency>
+      <groupId>org.mule</groupId>
+      <artifactId>mule-core</artifactId>
+      <version>1.4.3</version>
+	</dependency>
+	<dependency>
+      <groupId>org.mule</groupId>
+      <artifactId>mule-buildtools</artifactId>
+      <version>1.4.3</version>
+	</dependency> 
+	<dependency>
+      <groupId>org.mule.modules</groupId>
+      <artifactId>mule-module-builders</artifactId>
+      <version>1.4.3</version>
+	</dependency>
+	<dependency>
+      <groupId>org.mule.modules</groupId>
+      <artifactId>mule-module-client</artifactId>
+      <version>1.4.3</version>
+	</dependency>
+			
+	<dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>2.7.1</version>
+	</dependency>
+
+	<dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.9.1</version>
+	</dependency>
+
+   <dependency>
+      <groupId>portlet-api</groupId>
+      <artifactId>portlet-api</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+	<dependency>
+      <groupId>javaee</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>5</version>
+    </dependency>
+
+	<dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+
+	<dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.3</version>
+    </dependency>
+
+	<dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2</version>
+	</dependency>
+
+	<dependency>
+      <groupId>commons-digester</groupId>
+      <artifactId>commons-digester</artifactId>
+      <version>1.6</version>
+	</dependency>
+
+	<dependency>
+      <groupId>commons-discovery</groupId>
+      <artifactId>commons-discovery</artifactId>
+      <version>0.2</version>
+	</dependency>
+
+	<dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>3.0</version>
+	</dependency>	
+
+	<dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.2</version>
+	</dependency>
+
+	<dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.3</version>
+	</dependency>
+
+	<dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.4</version>
+	</dependency>  
+
+	<dependency>
+      <groupId>commons-net</groupId>
+      <artifactId>commons-net</artifactId>
+      <version>2.0</version>
+	</dependency>
+
+	<dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>1.5.1</version>
+	</dependency>
+
+	<dependency>
+      <groupId>commons-validator</groupId>
+      <artifactId>commons-validator</artifactId>
+      <version>1.3.1</version>
+	</dependency>
+
+	<dependency>
+      <groupId>oro</groupId>
+      <artifactId>oro</artifactId>
+      <version>2.0.7</version>
+	</dependency>
+
+<!-- IBM MQ Must Be Loaded to Local Repository Since Not Available from Remote Repository -->
+	<dependency>
+	    <groupId>com.ibm</groupId>
+	    <artifactId>com.ibm.mq</artifactId>
+	    <version>1.0.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.ibm</groupId>
+	    <artifactId>com.ibm.mq.bind</artifactId>
+	    <version>1.0.0</version>
+	</dependency>
+
+<!-- Oracle JDBC Driver Must Be Loaded to Local Repository Since Not Available from Remote Repository -->
+	<dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>com.oracle.jdbc</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+   
+  </dependencies>  
+
+<!-- 
+mvn install:install-file -Dfile=.\dependencies\mq\mq.jar -DgroupId=com.ibm -DartifactId=com.ibm.mq -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=.\dependencies\mq\mqbind.jar -DgroupId=com.ibm -DartifactId=com.ibm.mq.bind -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=.\dependencies\oracle\classes12.zip -DgroupId=com.oracle -DartifactId=com.oracle.jdbc -Dversion=1.0.0 -Dpackaging=jar
+ -->
+</project>  
