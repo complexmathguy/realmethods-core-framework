@@ -125,7 +125,7 @@ public class JCECypher
     			
 				// create a community.license
 			    String destinationIPAddress = "000.000.000.000";
-			    String hostID = "standard@cloudMigrate@10@1.0@" + expDate;
+			    String hostID = "standard@realMethods@10@1.0@" + expDate;
 			    GenerateLicenseFile genFile = new GenerateLicenseFile();
 			    try
 			    {
@@ -259,11 +259,11 @@ public class JCECypher
 
     public static void main(String args[])
     {
-    	String home = java.lang.System.getProperty( "CLOUDMIGRATE_HOME" ) != null ? java.lang.System.getProperty( "CLOUDMIGRATE_HOME" ).replace( '\\', java.io.File.separatorChar ) : ".";
+    	String home = java.lang.System.getProperty( "REALMETHODS_HOME" ) != null ? java.lang.System.getProperty( "REALMETHODS_HOME" ).replace( '\\', java.io.File.separatorChar ) : ".";
     	
     	if ( home == null || home.length() == 0 )
     	{
-    		System.out.println( "CLOUDMIGRATE_HOME is not defined" );
+    		System.out.println( "REALMETHODS_HOME is not defined" );
     		return;
     	}
     	
@@ -301,23 +301,24 @@ public class JCECypher
             
             licenseProperties.load(new BufferedReader( new FileReader(licenseFile) ) );
             
-            //licenseProperties.load(new DataInputStream( /*Thread.currentThread().getContextClassLoader().getResourceAsStream(licenseFile) */ JCECypher.class.getClassLoader().getResourceAsStream(licenseFile) ));
         }
         catch(Throwable licFileExc)
         {            
-//            licFileExc.printStackTrace();
-        	licenseProperties = null;
         	try
 			{
-//                System.out.println("--- Unable to locate license file " + licenseFile + " in the classpath.\nAttempting to locate licensee file in the directory using system property CLOUDMIGRATE_HOME " + CLOUDMIGRATE_HOME );
-//                licenseProperties = new Properties();
-            	
-//            	licenseProperties.load(new DataInputStream(new FileInputStream(CLOUDMIGRATE_HOME + java.io.File.separator + licenseFile)));
+                licenseProperties.load(new DataInputStream( Thread.currentThread().getContextClassLoader().getResourceAsStream(licenseFile)) ); 
 			}
             catch( Throwable exc )
 			{
-//            	System.out.println("*** ERROR: Unable to locate license file " + licenseFile);
-//            	return null;
+            	try
+            	{
+            		licenseProperties.load(new DataInputStream( JCECypher.class.getClassLoader().getResourceAsStream(licenseFile) ) ); 
+            	}
+            	catch( Throwable exc1 )
+            	{
+            		System.out.println("*** ERROR: Unable to locate license file " + licenseFile);
+            		return null;
+            	}
 			}
         }
    
@@ -389,7 +390,7 @@ public class JCECypher
                     licensedIPAddress.append(decryptIPAddressElement(ipAddressElement4Value));
                 }
                 if(!licensedIPAddress.toString().equalsIgnoreCase("0.0.0.0") && !licensedIPAddress.toString().equalsIgnoreCase("000.000.000.000") && !thisIPAddress.equalsIgnoreCase(licensedIPAddress.toString()) && !thisIPAddress.startsWith(licensedIPAddress.toString()))
-                    terminatePlatform("\n\n*** You are using cloudMigrate with an unauthorized or invalid license.\nIP Address Mismatch: Licensed IP Address - " + licensedIPAddress + ", Discovered IP Address - " + thisIPAddress + ".\n*** Contact support@realmethods.com for a valid license.");
+                    terminatePlatform("\n\n*** You are using realMethods with an unauthorized or invalid license.\nIP Address Mismatch: Licensed IP Address - " + licensedIPAddress + ", Discovered IP Address - " + thisIPAddress + ".\n*** Contact support@realmethods.com for a valid license.");
                 if(licenseHostID != null)
                 {
                     String hostID = new String(decryptHostID(licenseHostID));
@@ -409,7 +410,7 @@ public class JCECypher
                             Version = tokenizer.nextToken();
                         
                         if(Version == null)
-                            terminatePlatform("\n\n*** You are using cloudMigrate with an unauthorized or invalid license.\nNo version applied.\n*** Contact support@realmethods.com for a valid license.");
+                            terminatePlatform("\n\n*** You are using realMethods with an unauthorized or invalid license.\nNo version applied.\n*** Contact support@realmethods.com for a valid license.");
                         else
                         if(Version.equals("4.3.5"));
                         if(tokenizer.hasMoreTokens())
@@ -419,10 +420,10 @@ public class JCECypher
                         terminatePlatform("\n\n*** Unauthorized, invalid, or corrupt license discovered.\n*** Contact support@realmethods.com for a valid license.");
                     }
                     if(!HID.equals("eval") && !HID.equals("licensed") && !HID.equals("standard") && !HID.equals("group") && !HID.equals("enterprise"))
-                        terminatePlatform("\n\n*** You are using cloudMigrate with an unauthorized or invalid license.\nIncorrect version type.\n*** Contact support@realmethods.com for a valid license.");
+                        terminatePlatform("\n\n*** You are using realMethods with an unauthorized or invalid license.\nIncorrect version type.\n*** Contact support@realmethods.com for a valid license.");
                 } else
                 {
-                    terminatePlatform("\n\n*** You are using cloudMigrate with an older or invalid license.\n*** Contact support@realmethods.com for a valid license.");
+                    terminatePlatform("\n\n*** You are using realMethods with an older or invalid license.\n*** Contact support@realmethods.com for a valid license.");
                 }
                 String special = "0.0.0.0";
                 if(thisIPAddress.equalsIgnoreCase(licensedIPAddress.toString()) || licensedIPAddress.toString().equalsIgnoreCase(special) || thisIPAddress.startsWith(licensedIPAddress.toString()))
@@ -468,7 +469,7 @@ public class JCECypher
     public static final int KEY_RADIX = 16;
     protected static final String TOKEN = "g";
     
-    public static String CLOUDMIGRATE_HOME = java.lang.System.getProperty( "CLOUDMIGRATE_HOME" ) != null ? java.lang.System.getProperty( "CLOUDMIGRATE_HOME" ).replace( '\\', java.io.File.separatorChar ) : ".";
+    public static String REALMETHODS_HOME = java.lang.System.getProperty( "REALMETHODS_HOME" ) != null ? java.lang.System.getProperty( "REALMETHODS_HOME" ).replace( '\\', java.io.File.separatorChar ) : ".";
     
     public static boolean GOOGLE_LICENSE_ENV = java.lang.System.getProperty( "google.license.env" ) != null ? true : false;    
 
